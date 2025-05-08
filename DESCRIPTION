@@ -1,0 +1,11 @@
+Package: csu.arcbio.tools
+Title: convenience functions/tools for metabolomics (primarily)
+Version: 0.0.0.9000
+Authors@R: 
+    person("Corey", "Broeckling", , "corey.broeckling@colostate.edu", role = c("aut", "cre"))
+Description: convenience functions/tools for metabolomics (primarily).
+License: use_gpl3_license()
+Encoding: UTF-8
+Imports: InterpretMSSpectrum, RAMClustR, xcms, Spectra
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
