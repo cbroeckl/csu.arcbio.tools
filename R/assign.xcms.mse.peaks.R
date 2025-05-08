@@ -38,7 +38,7 @@ assign.xcms.mse.peaks <- function(
     ms1 <- ramclustObj$MSdata[,i]
     ms2.use <- which(abs(ramclustObj$frt.2 - ramclustObj$clrt[i]) <= max(min.rt.range, rt.sd*ramclustObj$clrtsd[i]))
     ms2.use <- ms2.use[which(ramclustObj$fmz.2[ms2.use] <= (1.1+ramclustObj$ms1.isotopes[[i]][[1]]$precursor.m))]
-    ms2.cor <- cor(ms1, ramclustObj$MSMSpeak.data[,ms2.use])
+    ms2.cor <- stats::cor(ms1, ramclustObj$MSMSpeak.data[,ms2.use])
     ms2.cor.use <- ms2.use[ms2.cor >= min.cor]
     
     if(length(ms2.cor.use) > 0) {

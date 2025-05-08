@@ -57,9 +57,9 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
   xcmsObj.class <- class(xcmsObj)[grepl("xcms", class(xcmsObj), ignore.case = TRUE)]
   
   if(xcmsObj.class == "XcmsExperiment") {
-    feature.definitions <- featureDefinitions(xcmsObj, msLevel = 1L)
-    chrom.peaks <- chromPeaks(xcmsObj)
-    chrom.peaks.data <- chromPeakData(xcmsObj)
+    feature.definitions <- xcms::featureDefinitions(xcmsObj, msLevel = 1L)
+    chrom.peaks <- xcms::chromPeaks(xcmsObj)
+    chrom.peaks.data <- xcms::chromPeakData(xcmsObj)
     if(use.filled) {
       use <- which(!chrom.peaks.data$is_filled)
     } else {
@@ -67,12 +67,12 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
     }
     chrom.peaks <- chrom.peaks[use,]
     chrom.peaks.data <- chrom.peaks.data[use,]
-    phenotype <- sampleData(xcmsObj)
+    phenotype <- xcms::sampleData(xcmsObj)
     filepaths <- phenotype[,pheno.file.header]
-    filenames <- basename(filepaths)
+    filenames <- base::basename(filepaths)
     nfiles <- length(filenames)
-    data <- t(featureValues(xcmsObj, msLevel = 1L, filled = use.filled))
-    st <- round(median(chrom.peaks[use, "rtmax"] - chrom.peaks[use, "rtmin"]) / 2, digits = 2)
+    data <- t(xcms::featureValues(xcmsObj, msLevel = 1L, filled = use.filled))
+    st <- round(stats::median(chrom.peaks[use, "rtmax"] - chrom.peaks[use, "rtmin"]) / 2, digits = 2)
     times <- feature.definitions[,"rtmed"]
     mzs <- feature.definitions[,"mzmed"]
     featnames <- row.names(feature.definitions)
@@ -87,9 +87,9 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
       featnames.2 <- row.names(feature.definitions.2)
     }
     if(fill.na) {
-      data[which(is.na(data))] <- rnorm(length(which(is.na(data))), 0.5*min(data, na.rm = TRUE), sd = 0.05*min(data, na.rm = TRUE))
+      data[which(is.na(data))] <- stats::rnorm(length(which(is.na(data))), 0.5*min(data, na.rm = TRUE), sd = 0.05*min(data, na.rm = TRUE))
       if(any(ls() == "data.2")) {
-        data.2[which(is.na(data.2))] <- rnorm(length(which(is.na(data.2))), 0.5*min(data.2, na.rm = TRUE), sd = 0.05*min(data.2, na.rm = TRUE))
+        data.2[which(is.na(data.2))] <- stats::rnorm(length(which(is.na(data.2))), 0.5*min(data.2, na.rm = TRUE), sd = 0.05*min(data.2, na.rm = TRUE))
       }
     }
     history <- paste0(
