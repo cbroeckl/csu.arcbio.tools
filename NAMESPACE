@@ -3,5 +3,6 @@
 export(assign.xcms.dda.peaks)
 export(assign.xcms.mse.peaks)
 export(doFindmain)
+export(export.mgf.formatted.spectra)
 export(export.ms.formatted.spectra)
 export(rc.get.xcms.data)
