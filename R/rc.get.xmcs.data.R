@@ -67,7 +67,7 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
     }
     chrom.peaks <- chrom.peaks[use,]
     chrom.peaks.data <- chrom.peaks.data[use,]
-    phenotype <- xcms::sampleData(xcmsObj)
+    phenotype <- MsExperiment::sampleData(xcmsObj)
     filepaths <- phenotype[,pheno.file.header]
     filenames <- base::basename(filepaths)
     nfiles <- length(filenames)
