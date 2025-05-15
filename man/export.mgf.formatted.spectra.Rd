@@ -4,12 +4,21 @@
 \alias{export.mgf.formatted.spectra}
 \title{export.mgf.formatted.spectra}
 \usage{
-export.mgf.formatted.spectra(ramclustObj = NULL, output.dir = NULL)
+export.mgf.formatted.spectra(
+  ramclustObj = NULL,
+  output.dir = NULL,
+  one.file = TRUE,
+  one.file.name = "spectra.mgf"
+)
 }
 \arguments{
 \item{ramclustObj}{ramclustR object to annotate.}
 
 \item{output.dir}{character: path to write MGF formatted spectra to a new directory called 'spectra' is created (if it does not exist), and within it a directory called 'mgf'.  all spectra files are written to the 'spectra/ms' directory within the specified directory, or the working directory, if not specified.}
+
+\item{out.file}{logical: if TRUE, all spectra are exported in a single mgf file.  Else each spectrum is in its own file. default = TRUE}
+
+\item{out.file.name}{character: file name of mgf file when 'one.file' = TRUE. default = 'spectra.mgf'}
 }
 \value{
 nothing - files written to disk
