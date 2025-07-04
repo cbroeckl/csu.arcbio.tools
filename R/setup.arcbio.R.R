@@ -1,14 +1,14 @@
 #' setup.arcbio.R
 #'
 #' just a convenience function to set up all packages needed for routine metabolomics work at CSU ARC-BIO
-#' @details can use "source('https://github.com/cbroeckl/csu.arcbio.tools/tree/main/R/setup.arcbio.R.R'); setup.arcbio.R()" to run
-#' @return nothing.  all data are saved to disk for later loading
+#' @details can use "source('https://github.com/cbroeckl/csu.arcbio.tools/tree/main/R/setup.arcbio.R.R', local = FALSE); setup.arcbio.R()" to run
+#' @return nothing  
 #' @author Corey Broeckling
 #' 
 #' @export 
 #' 
 
-setup.arcbio.R <- function() {
+setup.arcbio.R = function() {
   options(install.packages.check.source = "no")
   options(install.packages.compile.from.source = "no")
   
