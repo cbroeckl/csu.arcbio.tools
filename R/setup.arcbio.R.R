@@ -29,7 +29,7 @@ setup.arcbio.R <- function() {
   }
   
   bioc.packages <- c(
-    'biobase', 'biocgenerics',
+    'Biobase', 'BiocGenerics',
     'MsCoreUtils', 'MetaboCoreUtils', 'Spectra', 'MetaboAnnotation', 'CompoundDb',
     'MsBackendMgf', 'MsBackendMassbank', 'MsBackendMsp', 'mzR', 'xcms', 'ChemmineR', 'ChemmineOB'
   )
