@@ -11,7 +11,7 @@
 #' @export
 #' 
 #'
-pubchem.bio.to.fiora <- function(
+fiora.mgf.to.spectra <- function(
     mgf.dir = NULL,
     split.by.polarity = TRUE,
     out.dir = NULL
@@ -19,6 +19,7 @@ pubchem.bio.to.fiora <- function(
 
   requireNamespace('Spectra')
   requireNamespace('MsBackendMgf')
+  
   
   if(!dir.exists(mgf.dir)) stop("mgf.dir does not exist: ", mgf.dir, '\n')
   mgf.files <- list.files(mgf.dir, pattern = "mgf", full.names = TRUE)
@@ -47,12 +48,12 @@ pubchem.bio.to.fiora <- function(
     formula = "FORMULA",
     comment = "COMMENT"
   )
-
+  
   for(i in 1:length(mgf.files)) {
     cat(i, " ")
     ## read in mgf file
     
-    s <- backendInitialize(MsBackendAnnotatedMgf(), mgf.files[i], mapping = mapping)
+    suppressMessages(s <- backendInitialize(MsBackendMgf::MsBackendAnnotatedMgf(), mgf.files[i], mapping = mapping))
     add.type <- s$adduct
     polarity <- rep(1, length(add.type))
     is.neg <- grep("[M-H]-", add.type, fixed = TRUE)
