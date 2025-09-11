@@ -13,18 +13,26 @@ pc.bio.fiora <- pubchem.bio.to.fiora(
   out.dir = 'C:/Temp/for.fiora/'
 )
 
-## at this point you need to run Fiora
+
+
+
+## at this point you need to run Fiora on Linux
 ## once complete, you can import files
 ## into 'Spectra' object to enable
 ## spectral searching
+
+
+## we then import the spectra into a 'Spectra' object
 mgf.dir <- "C:/Temp/20250828/fiora/"
-fiora.lib <- pubchem.bio.to.fiora(mgf.dir = mgf.dir)
+fiora.lib <- fiora.mgf.to.spectra(mgf.dir = mgf.dir)
+
 
 ## try search against NIST (ONLY works from ARC-BIO computers)
-load("R:/RSTOR-PMF/Software/db/nist.msp/nist23-hr/nist.hr.pos.Rdata")
-load("C:/Temp/20250828/fiora/fiora.pos.Rdata")
 library(MetaboAnnotation)
 library(Spectra)
+load("R:/RSTOR-PMF/Software/db/nist.msp/nist23-hr/nist.hr.pos.Rdata")
+load("C:/Temp/20250828/fiora/fiora.pos.Rdata")
+
 
 csp.fr <- MatchForwardReverseParam(
   MAPFUN = joinPeaks,
@@ -70,32 +78,37 @@ tests <- sample(1:length(fiora.pos), 100)
 test.lib <- fiora.pos[tests]
 nist.hr.pos <- Spectra::setBackend(nist.hr.pos, backend = MsBackendMemory())
 
-matches.fr <- MetaboAnnotation::matchSpectra(
-  test.lib,
-  fiora.pos,
-  param = csp.fr,
-  rtColname = c("rtime", "rtime"),
-  BPPARAM = BiocParallel::SnowParam(2),
-  addOriginalQueryIndex = TRUE
-)
 
 a <- Sys.time()
 matches.dotprod <- MetaboAnnotation::matchSpectra(
-  test.lib[1:10],
-  fiora.pos,
+  test.lib[1:40],
+  fiora.pos[1:400],
   param = csp.dotprod,
   rtColname = c("rtime", "rtime"),
-  BPPARAM = BiocParallel::SnowParam(2),
+  BPPARAM = BiocParallel::SnowParam(1),
   addOriginalQueryIndex = TRUE)
 b <- Sys.time()
 c <- Sys.time()
 matches.entropy <- MetaboAnnotation::matchSpectra(
-  test.lib[1:10],
-  fiora.pos,
+  test.lib[1:40],
+  fiora.pos[1:400],
   param = csp.entropy,
   rtColname = c("rtime", "rtime"),
-  BPPARAM = BiocParallel::SnowParam(2),
+  BPPARAM = BiocParallel::SnowParam(1),
   addOriginalQueryIndex = TRUE)
 d <- Sys.time()
+e <- Sys.time()
+matches.fr <- MetaboAnnotation::matchSpectra(
+  test.lib[1:40],
+  fiora.pos[1:400],
+  param = csp.fr,
+  rtColname = c("rtime", "rtime"),
+  BPPARAM = BiocParallel::SnowParam(1),
+  addOriginalQueryIndex = TRUE
+)
+f <- Sys.time()
+b-a
+d-c
+f-e
 
-mtches
+
