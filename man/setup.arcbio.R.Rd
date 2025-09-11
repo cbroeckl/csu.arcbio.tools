@@ -13,6 +13,34 @@ nothing
 just a convenience function to set up all packages needed for routine metabolomics work at CSU ARC-BIO
 }
 \details{
+When setting up on Windows for the first time, you will need to manually install
+\itemize{
+\item 64 Bit Java
+\item OpenBabel
+}
+
+When setting up on linux
+using package manager:
+\itemize{
+\item libcurl-devel
+\item libcurl-openssl-devel
+\item librsvg2-devel
+\item fontconfig-devel
+\item fribidi
+\item fribidi-devel
+\item freetype-devel
+\item libpng-devel
+\item libtiff-devel
+\item libjpeg-devel
+\item libwebp-devel
+\item openbabel
+\item openbabel-devel
+From Source:
+\item netcdf
+\item zlib (required by netcdf)
+\item hdf5 (optional requirement by netcdf)
+}
+
 can use "source('https://raw.githubusercontent.com/cbroeckl/csu.arcbio.tools/master/R/setup.arcbio.R.R'); setup.arcbio.R()" to run
 }
 \author{
