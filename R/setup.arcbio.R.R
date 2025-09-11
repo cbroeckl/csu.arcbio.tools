@@ -44,7 +44,7 @@ setup.arcbio.R <- function() {
   cran.packages <- c(
     'devtools', 'BiocManager', 'rstudioapi', 'ggplot2', 'ggfortify', 'curl',
     'emmeans', 'effects', 'lme4', 'lmerTest', 'pbkrtest', 'ClassDiscovery', 
-    'PCDimension', 'CHNOSZ', 'remotes'  
+    'PCDimension', 'CHNOSZ', 'remotes', 'pubchem.bio'  
   )
   cran.packages <- cran.packages[!(cran.packages %in% installed)]
   
@@ -68,11 +68,10 @@ setup.arcbio.R <- function() {
   }
   
   ## from GITHUB
-  devtools::install_github('cbroeckl/RAMClustR', dependencies = TRUE, upgrade = 'always')
-  devtools::install_github('cbroeckl/csu.pmf.tools', dependencies = TRUE, upgrade = 'always')
-  devtools::install_github('cbroeckl/csu.arcbio.tools', dependencies = TRUE, upgrade = 'always')
-  devtools::install_github('cbroeckl/pubchem.bio', dependencies = TRUE, upgrade = 'always')
-  
+  remotes::install_github('cbroeckl/RAMClustR', dependencies = TRUE, upgrade = 'always')
+  remotes::install_github('cbroeckl/csu.pmf.tools', dependencies = TRUE, upgrade = 'always')
+  remotes::install_github('cbroeckl/csu.arcbio.tools', dependencies = TRUE, upgrade = 'always')
+
 }
 
 
