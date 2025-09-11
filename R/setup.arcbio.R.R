@@ -1,6 +1,32 @@
 #' setup.arcbio.R
 #'
 #' just a convenience function to set up all packages needed for routine metabolomics work at CSU ARC-BIO
+#' 
+#' When setting up on Windows for the first time, you will need to manually install
+#'  - 64 Bit Java
+#'  - OpenBabel
+#' 
+#' When setting up on linux
+#' using package manager:
+#'  - libcurl-devel 
+#'  - libcurl-openssl-devel
+#'  - librsvg2-devel
+#'  - fontconfig-devel
+#'  - fribidi
+#'  - fribidi-devel
+#'  - freetype-devel 
+#'  - libpng-devel 
+#'  - libtiff-devel 
+#'  - libjpeg-devel 
+#'  - libwebp-devel
+#'  - openbabel
+#'  - openbabel-devel
+#' From Source:
+#'  - netcdf
+#'  - zlib (required by netcdf)
+#'  - hdf5 (optional requirement by netcdf)
+#' 
+#' 
 #' @details can use "source('https://raw.githubusercontent.com/cbroeckl/csu.arcbio.tools/master/R/setup.arcbio.R.R'); setup.arcbio.R()" to run
 #' @return nothing  
 #' @author Corey Broeckling
