@@ -26,89 +26,30 @@ pc.bio.fiora <- pubchem.bio.to.fiora(
 mgf.dir <- "C:/Temp/20250828/fiora/"
 fiora.lib <- fiora.mgf.to.spectra(mgf.dir = mgf.dir)
 
+## we also want to bring in metadata from the pubchem.bio object
+## should probably put this into the fiora.mgf.to.spectra function
+load(paste0(local.pubchem.directory, "/pc.bio.Rdata"))
 
-## try search against NIST (ONLY works from ARC-BIO computers)
-library(MetaboAnnotation)
-library(Spectra)
-load("R:/RSTOR-PMF/Software/db/nist.msp/nist23-hr/nist.hr.pos.Rdata")
-load("C:/Temp/20250828/fiora/fiora.pos.Rdata")
+## load pos, then neg fiora data
+load(paste0(mgf.dir, "/fiora.pos.Rdata"))
+f.sm <- fiora.pos$precursor.smiles
+f.sm.mtch <- match(f.sm, pc.bio$smiles)
+fiora.pos$inchikey <- pc.bio$inchikey[f.sm.mtch]
+fiora.pos$inchikey.first.block <- pc.bio$inchikey.first.block[f.sm.mtch]
+fiora.pos$XLogP <- pc.bio$XLogP[f.sm.mtch]
+fiora.pos$nAcid <- pc.bio$nAcid[f.sm.mtch]
+fiora.pos$nBase <- pc.bio$nBase[f.sm.mtch]
+fiora.pos$TopoPSA <- pc.bio$TopoPSA[f.sm.mtch]
+save(fiora.pos, file = paste0(mgf.dir, "/fiora.pos.Rdata"))
 
-
-csp.fr <- MatchForwardReverseParam(
-  MAPFUN = joinPeaks,
-  tolerance = 0,
-  ppm = 5,
-  FUN = MsCoreUtils::ndotproduct,
-  requirePrecursor = TRUE,
-  requirePrecursorPeak = FALSE,
-  THRESHFUN = function(x) which(x >= 0.5),
-  THRESHFUN_REVERSE = NULL,
-  toleranceRt = Inf,
-  percentRt = 0
-)
-
-
-csp.dotprod <- CompareSpectraParam(
-  MAPFUN = joinPeaks,
-  tolerance = 0,
-  ppm = 5,
-  FUN = MsCoreUtils::ndotproduct,
-  requirePrecursor = TRUE,
-  requirePrecursorPeak = FALSE,
-  THRESHFUN = function(x) which(x >= 0.5),
-  toleranceRt = Inf,
-  percentRt = 0
-)
-
-## not sure it will ever finish....
-csp.entropy <- CompareSpectraParam(
-  MAPFUN = joinPeaks,
-  tolerance = 0,
-  ppm = 5,
-  # FUN = MsCoreUtils::nentropy,
-  FUN = msentropy::msentropy_similarity,
-  requirePrecursor = TRUE,
-  requirePrecursorPeak = FALSE,
-  THRESHFUN = function(x) which(x >= 0.5),
-  toleranceRt = Inf,
-  percentRt = 0
-)
-
-tests <- sample(1:length(fiora.pos), 100)
-test.lib <- fiora.pos[tests]
-nist.hr.pos <- Spectra::setBackend(nist.hr.pos, backend = MsBackendMemory())
-
-
-a <- Sys.time()
-matches.dotprod <- MetaboAnnotation::matchSpectra(
-  test.lib[1:40],
-  fiora.pos[1:400],
-  param = csp.dotprod,
-  rtColname = c("rtime", "rtime"),
-  BPPARAM = BiocParallel::SnowParam(1),
-  addOriginalQueryIndex = TRUE)
-b <- Sys.time()
-c <- Sys.time()
-matches.entropy <- MetaboAnnotation::matchSpectra(
-  test.lib[1:40],
-  fiora.pos[1:400],
-  param = csp.entropy,
-  rtColname = c("rtime", "rtime"),
-  BPPARAM = BiocParallel::SnowParam(1),
-  addOriginalQueryIndex = TRUE)
-d <- Sys.time()
-e <- Sys.time()
-matches.fr <- MetaboAnnotation::matchSpectra(
-  test.lib[1:40],
-  fiora.pos[1:400],
-  param = csp.fr,
-  rtColname = c("rtime", "rtime"),
-  BPPARAM = BiocParallel::SnowParam(1),
-  addOriginalQueryIndex = TRUE
-)
-f <- Sys.time()
-b-a
-d-c
-f-e
-
-
+## load pos, then neg fiora data
+load(paste0(mgf.dir, "/fiora.neg.Rdata"))
+f.sm <- fiora.neg$precursor.smiles
+f.sm.mtch <- match(f.sm, pc.bio$smiles)
+fiora.neg$inchikey <- pc.bio$inchikey[f.sm.mtch]
+fiora.neg$inchikey.first.block <- pc.bio$inchikey.first.block[f.sm.mtch]
+fiora.neg$XLogP <- pc.bio$XLogP[f.sm.mtch]
+fiora.neg$nAcid <- pc.bio$nAcid[f.sm.mtch]
+fiora.neg$nBase <- pc.bio$nBase[f.sm.mtch]
+fiora.neg$TopoPSA <- pc.bio$TopoPSA[f.sm.mtch]
+save(fiora.neg, file = paste0(mgf.dir, "/fiora.neg.Rdata"))
