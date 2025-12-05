@@ -44,7 +44,7 @@ setup.arcbio.R <- function() {
   cran.packages <- c(
     'devtools', 'BiocManager', 'rstudioapi', 'ggplot2', 'ggfortify', 'curl',
     'emmeans', 'effects', 'lme4', 'lmerTest', 'pbkrtest', 'ClassDiscovery', 
-    'PCDimension', 'CHNOSZ', 'remotes', 'pubchem.bio'  
+    'PCDimension', 'CHNOSZ', 'remotes', 'pubchem.bio', 'fioRa'  
   )
   cran.packages <- cran.packages[!(cran.packages %in% installed)]
   
