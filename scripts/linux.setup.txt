@@ -1,0 +1,9 @@
+## this script is useful for creating new conda environments on a linux system
+
+conda create --strict-channel-priority --override-channels --channel conda-forge --channel bioconda --name xcms bioconductor-xcms
+conda activate xcms
+conda install conda-forge::r-rjava
+
+Then open R, and run: 
+BiocManager::install("RforMassSpectrometry/RforMassSpectrometry")
+

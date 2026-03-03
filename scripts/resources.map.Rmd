@@ -1,0 +1,69 @@
+---
+title: "R-based.MS.analysis.map"
+author: "corey broeckling"
+date: "2025-11-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goal
+
+I have a hard time finding all the resources available in the wide world of R-based small molecules. i wanted to collate some of these resources in a (relatively) brief and (relatively) organized document.  
+
+## Resources
+
+### visualization of chromatography and mass spectrometry data
+ - [chromatogram objects from 'Chromatograms' package]('https://bioconductor.org/packages/release/bioc/vignettes/Chromatograms/inst/doc/using-a-chromatograms-object.html')
+ - [spectra objects from 'Spectra' package]('https://bioconductor.org/packages/release/bioc/vignettes/Spectra/inst/doc/Spectra.html')
+
+### study design metadata storage
+ - [study metadata using MsExperiment package]('https://bioconductor.org/packages/release/bioc/vignettes/MsExperiment/inst/doc/MsExperiment.html')
+
+### XCMS usage for XC-MS data
+ - [xcms overview]('https://www.bioconductor.org/packages/devel/bioc/vignettes/xcms/inst/doc/xcms.html')
+ - [xcls lc-ms feature grouping tutorial]('https://www.bioconductor.org/packages/release/bioc/vignettes/xcms/inst/doc/LC-MS-feature-grouping.html')
+ - [xcms lc-ms/ms processing]('https://www.bioconductor.org/packages/release/bioc/vignettes/xcms/inst/doc/xcms-lcms-ms.html')
+ - [xcms tutorial from johannes ranier]('https://jorainer.github.io/xcmsTutorials/')
+ - [xcms tutoral via Metabonaut]('https://rformassspectrometry.github.io/Metabonaut/articles/a-end-to-end-untargeted-metabolomics.html')
+ - [large scale analysis with xcms]('https://rformassspectrometry.github.io/Metabonaut/articles/large-scale-analysis.html')
+ - [xcms alighment of multipel datasets]('https://rformassspectrometry.github.io/Metabonaut/articles/alignment-to-external-dataset.html')
+
+### handling of single spectrum/sample datasets
+ - [using xcms for processing of spectra/infusion assay]('https://www.bioconductor.org/packages/release/bioc/vignettes/xcms/inst/doc/xcms-direct-injection.html')
+
+### basic QC of XCMS data
+ - [investigating quality of raw and xcms-processed data]('https://rformassspectrometry.github.io/Metabonaut/articles/dataset-investigation.html')
+ - [QC, missingness, D-ratio filters using MetaboCoreUtils]('https://www.bioconductor.org/packages/release/bioc/vignettes/MetaboCoreUtils/inst/doc/MetaboCoreUtils.html') 
+ - [extracting and visualizing chromatograms]('https://bioconductor.org/packages/release/bioc/vignettes/Chromatograms/inst/doc/using-a-chromatograms-object.html')
+ 
+### chemical formula manipulation
+ - [using MetaboCoreUtils for handling chemical formula]('https://www.bioconductor.org/packages/release/bioc/vignettes/MetaboCoreUtils/inst/doc/MetaboCoreUtils.html')
+ - [accurate mass of a chemical formula]('https://cran.r-project.org/web/packages/enviPat/refman/enviPat.html')
+ 
+### adjust for injection order effects
+ - [RAMClustR linear runorder and batch correction of features]('https://github.com/cbroeckl/RAMClustR/blob/master/R/rc.feature.normalize.qc.R')
+ - [MetaboCoreUtils for linear correction of run order effect]('https://www.bioconductor.org/packages/release/bioc/vignettes/MetaboCoreUtils/inst/doc/MetaboCoreUtils.html')
+ 
+### RAMClustR for clustering xcms features
+ - [overview of the RAMClustR package for feature clustering]('https://github.com/cbroeckl/RAMClustR')
+ 
+### Isotope modeling
+ - [enviPat for modeling isotopes of a molecular formula]('https://cran.r-project.org/web/packages/enviPat/refman/enviPat.html')
+
+### Small molecule structure library management
+ - [building a biological subset of pubchem with the pubch.bio package]('https://cran.r-project.org/web/packages/pubchem.bio/vignettes/pubchem.bio.vignette.html')
+ - [using the CompoundDB package to curate structures]('https://bioconductor.org/packages/devel/bioc/vignettes/CompoundDb/inst/doc/create-compounddb.html')
+ 
+### Mass spectrometry spectrum library management
+ - [getting started with R Spectra handling using the Spectra package]('https://bioconductor.org/packages/release/bioc/vignettes/Spectra/inst/doc/Spectra.html')
+ - [scaling up Spectra for large scale processing]('https://bioconductor.org/packages/release/bioc/vignettes/Spectra/inst/doc/Spectra-large-scale.html')
+
+### Annotation
+ - [Annotation based on accurate mass and/or MS/MS spectra matching]('https://bioconductor.org/packages/devel/bioc/vignettes/MetaboAnnotation/inst/doc/MetaboAnnotation.html')
+ 
+### quite a few base-level functions here (rarely of value to most users):
+ - [Extra stuff - should rarely use - but MsCoreUtils contains a good number of base functions which may be valuable at times]('https://bioconductor.org/packages/release/bioc/vignettes/MsCoreUtils/inst/doc/MsCoreUtils.html') 
+ 
