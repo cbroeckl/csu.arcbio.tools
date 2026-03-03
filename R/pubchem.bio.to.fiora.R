@@ -22,8 +22,9 @@ pubchem.bio.to.fiora <- function(
     param.table = data.frame(Precursor_type = "[M+H]+", CE = 20, Instrument_type = "HCD"), 
     min_prob = 0.01,
     annotation = TRUE,
-    rm.charged = FALSE,
+    rm.charged = TRUE,
     mw.range = c(50,1200),
+    min.elements = 4,
     out.dir = NULL
     ) {
   
@@ -38,6 +39,14 @@ pubchem.bio.to.fiora <- function(
   if(rm.charged) {
     charged <- grepl("+", pubchem.bio.object$formula, fixed = TRUE) | grepl("-", pubchem.bio.object$formula, fixed = TRUE)
     pubchem.bio.object <- pubchem.bio.object[!charged,]
+  }
+  
+  if(min.elements > 1) {
+    tmp <- MetaboCoreUtils::countElements(pubchem.bio.object$formula)
+    tmp2 <- sapply(tmp, FUN = 'sum')
+    keep <- which( tmp2 >= min.elements )
+    pubchem.bio.object <- pubchem.bio.object[keep,]
+    rm(tmp); rm(tmp2); rm(keep)
   }
   
   out <- data.frame(
@@ -94,5 +103,4 @@ pubchem.bio.to.fiora <- function(
   
   message("After copying file to linux server, ensure  the '.sh' file is saved in 'unix' format (MobaXTerm converts to DOS upon transfer). ")
   message("You will then need to make the file executable using 'chmod +x data/fiora.script.sh', for example.")
-  return(out)
 }

@@ -76,7 +76,7 @@ fiora.mgf.to.spectra <- function(
   # if(aggregate.files) {
   #   fiora.library <- Spectra::backendInitialize(MsBackendMgf::MsBackendAnnotatedMgf(), paste0(mgf.dir, "/all.MGF"), mapping = mapping)
   # } else {
-    fiora.library <- Spectra::backendInitialize(MsBackendMgf::MsBackendAnnotatedMgf(), mgf.files, mapping = mapping)
+    fiora.library <- Spectra::backendInitialize(MsBackendMgf::MsBackendAnnotatedMgf(), files = mgf.files,  mapping = mapping)
   # }
   # print(mgf.files)
   add.type <- fiora.library$adduct
@@ -102,13 +102,13 @@ fiora.mgf.to.spectra <- function(
   gc()
   
   fiora.library <- Spectra::setBackend(fiora.library, backend = Spectra::MsBackendMemory())
-  save(fiora.library, file = paste0(mgf.dir, "fiora.pos.Rdata"))
+  save(fiora.library, file = paste0(out.dir, "fiora.Rdata"))
   
   if(split.by.polarity) {
     fiora.pos <- Spectra::filterPolarity(fiora.library, 1L)
     fiora.neg <- Spectra::filterPolarity(fiora.library, 0L)
-    if(length(fiora.pos) > 0) save(fiora.pos, file = paste0(mgf.dir, "fiora.pos.Rdata"))
-    if(length(fiora.neg) > 0) save(fiora.neg, file = paste0(mgf.dir, "fiora.neg.Rdata"))
+    if(length(fiora.pos) > 0) save(fiora.pos, file = paste0(out.dir, "fiora.pos.Rdata"))
+    if(length(fiora.neg) > 0) save(fiora.neg, file = paste0(out.dir, "fiora.neg.Rdata"))
     rm(fiora.library)
     fiora.library <- as.list(rep(NA, 2))
     names(fiora.library) <- c("pos", "neg")
