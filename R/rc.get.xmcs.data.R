@@ -72,6 +72,7 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
     filenames <- base::basename(filepaths)
     nfiles <- length(filenames)
     data <- t(xcms::featureValues(xcmsObj, msLevel = 1L, filled = use.filled))
+    data.alternate <- t(xcms::featureValues(xcmsObj, msLevel = 1L, filled = !use.filled))
     st <- round(stats::median(chrom.peaks[use, "rtmax"] - chrom.peaks[use, "rtmin"]) / 2, digits = 2)
     times <- feature.definitions[,"rtmed"]
     mzs <- feature.definitions[,"mzmed"]
@@ -103,11 +104,15 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
   # reorder feature data by RT, record original xcmsOrder
   xcmsOrd <- order(times)
   data <- data[, xcmsOrd]
+  data.alternate <- data.alternate[, xcmsOrd]
   mzs <- mzs[xcmsOrd]
   times <- times[xcmsOrd]
   featnames <- featnames[xcmsOrd]
   dimnames(data)[[2]] <- featnames
   dimnames(data)[[1]] <- filenames
+  dimnames(data.alternate)[[2]] <- featnames
+  dimnames(data.alternate)[[1]] <- filenames
+  
   
   ramclustObj <- RAMClustR::create_ramclustObj(
     ExpDes = ExpDes,
@@ -123,11 +128,20 @@ rc.get.xcms.data <- function(xcmsObj = NULL,
     sample_names = phenotype[,1]
   )
   
+  if(use.filled) {
+    ramclustObj$MSdata.unfilled <- data.alternate
+  } else {
+    ramclustObj$MSdata.filled <- data.alternate
+  }
+  
   if(any(ls() == "data.2")) {
+    dimnames(data.2)[[1]] <- filenames
+    dimnames(data.2)[[2]] <- featnames.2
     ramclustObj$MSMSpeak.data <- data.2
     ramclustObj$frt.2 <- times.2
     ramclustObj$fmz.2 <- mzs.2
     ramclustObj$feature_names.2 <- featnames.2
+    
   }
   
   if (is.null(ramclustObj$params)) {
