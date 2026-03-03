@@ -27,7 +27,7 @@
 #'  - hdf5 (optional requirement by netcdf)
 #' 
 #' 
-#' @details can use "source('https://raw.githubusercontent.com/cbroeckl/csu.arcbio.tools/master/R/setup.arcbio.R.R'); setup.arcbio.R()" to run
+#' @details can use "source('https://raw.githubusercontent.com/cbroeckl/csu.arcbio.tools/master/R/setup.arcbio.R.R'); setup.arcbio.R()" to run; in LINUX, may need to run export TMPDIR=/var/tmp within conda env to ensure successful package installation 
 #' @return nothing  
 #' @author Corey Broeckling
 #' 
